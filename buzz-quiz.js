@@ -1,4 +1,3 @@
-// buzz-quiz.js
 const quizData = [
   {question:"Question 1: What’s your perfect plan for a weekend?",answers:[{text:"A. Going on an adventure — hiking, traveling, exploring new places",value:1},{text:"B. Chilling at home with snacks and friends",value:2},{text:"C. Doing something creative — art, music, writing",value:3},{text:"D. Solving puzzles or mysteries",value:4}]},
   {question:"Question 2: When faced with a difficult situation, you usually:",answers:[{text:"A. Dive in headfirst — act now, figure out later.",value:1},{text:"B. Stay calm — rely on support from friends/family.",value:2},{text:"C. Think outside the box — use creativity or empathy.",value:3},{text:"D. Analyze every detail before acting.",value:4}]},
@@ -21,44 +20,57 @@ const results = [
   { minScore: 29, maxScore: 32, text: "CALL ME MOTHER", img: "https://i.ibb.co/sdmW6VzH/CALL-ME-MOTHER.jpg" }
 ];
 
-// Initialize quiz
-let currentQuestion = 0;
-let score = 0;
+document.addEventListener("DOMContentLoaded", () => {
+  let currentQuestion = 0;
+  let score = 0;
 
-const questionContainer = document.getElementById("question-container");
-const answerButtons = document.getElementById("answer-buttons");
-const resultContainer = document.getElementById("result-container");
+  const questionContainer = document.getElementById("question-container");
+  const answerButtons = document.getElementById("answer-buttons");
+  const resultContainer = document.getElementById("result-container");
 
-function showQuestion() {
-  questionContainer.innerHTML = `<h3>${quizData[currentQuestion].question}</h3>`;
-  answerButtons.innerHTML = "";
-  quizData[currentQuestion].answers.forEach(answer => {
-    const btn = document.createElement("button");
-    btn.innerText = answer.text;
-    btn.onclick = () => selectAnswer(answer.value);
-    btn.style.margin="5px";
-    btn.style.padding="10px";
-    btn.style.fontSize="14px";
-    btn.style.cursor="pointer";
-    answerButtons.appendChild(btn);
-  });
-}
-
-function selectAnswer(value) {
-  score += value;
-  currentQuestion++;
-  if(currentQuestion < quizData.length){
-    showQuestion();
-  } else {
-    showResult();
+  function showQuestion() {
+    questionContainer.innerHTML = `<h3>${quizData[currentQuestion].question}</h3>`;
+    answerButtons.innerHTML = "";
+    quizData[currentQuestion].answers.forEach(answer => {
+      const btn = document.createElement("button");
+      btn.innerText = answer.text;
+      btn.onclick = () => selectAnswer(answer.value);
+      answerButtons.appendChild(btn);
+    });
   }
-}
 
-function showResult() {
-  questionContainer.style.display="none";
-  answerButtons.style.display="none";
-  const result = results.find(r=>score>=r.minScore && score<=r.maxScore);
-  resultContainer.innerHTML=`<h3>${result.text}</h3><img src="${result.img}" style="max-width:100%;">`;
-}
+  function selectAnswer(value) {
+    score += value;
+    currentQuestion++;
+    if(currentQuestion < quizData.length){
+      showQuestion();
+    } else {
+      showResult();
+    }
+  }
 
-showQuestion();
+  function showResult() {
+    questionContainer.style.display="none";
+    answerButtons.style.display="none";
+    const result = results.find(r => score >= r.minScore && score <= r.maxScore);
+    resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}"><br><br>`;
+
+    // Add Restart button
+    const restartBtn = document.createElement("button");
+    restartBtn.id = "restart-btn";
+    restartBtn.innerText = "Restart Quiz";
+    restartBtn.onclick = restartQuiz;
+    resultContainer.appendChild(restartBtn);
+  }
+
+  function restartQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    questionContainer.style.display="block";
+    answerButtons.style.display="block";
+    resultContainer.innerHTML = "";
+    showQuestion();
+  }
+
+  showQuestion();
+});
