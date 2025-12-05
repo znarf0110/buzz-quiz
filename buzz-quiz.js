@@ -50,11 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showResult() {
-    questionContainer.style.display="none";
-    answerButtons.style.display="none";
+    questionContainer.style.display = "none";
+    answerButtons.style.display = "none";
     const result = results.find(r => score >= r.minScore && score <= r.maxScore);
-    resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}"><br><br>`;
+    resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}">`;
+    // Restart button removed
+  }
 
   showQuestion();
 });
-
