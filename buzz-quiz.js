@@ -1,6 +1,3 @@
-// Replace this with your Google Sites quiz page URL
-const quizURL = 'https://sites.google.com/creazionstudios.com/what-mmff-film-is-for-you/home'; 
-
 // Quiz questions and answers
 const quizData = [
   {question:"Question 1: What’s your perfect plan for a weekend?",answers:[{text:"A. Going on an adventure — hiking, traveling, exploring new places",value:1},{text:"B. Chilling at home with snacks and friends",value:2},{text:"C. Doing something creative — art, music, writing",value:3},{text:"D. Solving puzzles or mysteries",value:4}]},
@@ -61,42 +58,8 @@ const results = [
     const result = results.find(r => score >= r.minScore && score <= r.maxScore);
     resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}">`;
 
-    showShareButtons(result.text);
-  }
-
-  function showShareButtons(resultText) {
-    shareContainer.innerHTML = "";
-    const text = encodeURIComponent(`I got "${resultText}" in the MMFF Film Quiz! Find out your MMFF film too!`);
-
-    // Facebook
-    const fbBtn = document.createElement("a");
-    fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(quizURL)}&quote=${text}`;
-    fbBtn.target = "_blank";
-    fbBtn.innerText = "Share on Facebook";
-    fbBtn.style.background = "#3b5998";
-
-    // X / Twitter
-    const twitterBtn = document.createElement("a");
-    twitterBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(quizURL)}`;
-    twitterBtn.target = "_blank";
-    twitterBtn.innerText = "Share on X";
-    twitterBtn.style.background = "#1DA1F2";
-
-    // Instagram (copy link)
-    const instaBtn = document.createElement("a");
-    instaBtn.href = "#";
-    instaBtn.innerText = "Share on Instagram";
-    instaBtn.style.background = "#C13584"; 
-    instaBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      navigator.clipboard.writeText(quizURL)
-        .then(() => alert("Quiz link copied! Share it on your Instagram Story or DM."));
-    });
-
-    shareContainer.appendChild(fbBtn);
-    shareContainer.appendChild(twitterBtn);
-    shareContainer.appendChild(instaBtn);
   }
 
   showQuestion();
 })();
+
