@@ -60,6 +60,24 @@
     #result-container {
       margin-top: 20px;
     }
+
+    #share-container a {
+      display: block;
+      margin: 8px auto;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      width: 200px;
+      text-align: center;
+      color: #fff;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+
+    #share-container a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
@@ -70,6 +88,7 @@
   <div id="question-container"></div>
   <div id="answer-buttons"></div>
   <div id="result-container"></div>
+  <div id="share-container"></div> <!-- Social share buttons -->
 
   <script src="buzz-quiz.js"></script>
 </body>
