@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     answerButtons.style.display = "none";
     const result = results.find(r => score >= r.minScore && score <= r.maxScore);
     resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}">`;
-    // Restart button removed
   }
 
   showQuestion();
