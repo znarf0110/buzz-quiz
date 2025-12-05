@@ -1,3 +1,4 @@
+// Quiz questions and answers
 const quizData = [
   {question:"Question 1: What’s your perfect plan for a weekend?",answers:[{text:"A. Going on an adventure — hiking, traveling, exploring new places",value:1},{text:"B. Chilling at home with snacks and friends",value:2},{text:"C. Doing something creative — art, music, writing",value:3},{text:"D. Solving puzzles or mysteries",value:4}]},
   {question:"Question 2: When faced with a difficult situation, you usually:",answers:[{text:"A. Dive in headfirst — act now, figure out later.",value:1},{text:"B. Stay calm — rely on support from friends/family.",value:2},{text:"C. Think outside the box — use creativity or empathy.",value:3},{text:"D. Analyze every detail before acting.",value:4}]},
@@ -9,6 +10,7 @@ const quizData = [
   {question:"Question 8: How do you deal with changes or surprises in life?",answers:[{text:"A. Jump right in — you love unpredictability.",value:1},{text:"B. Go with the flow — rely on friends and positivity.",value:2},{text:"C. Adapt with creativity — adjust and reinvent if needed.",value:3},{text:"D. Analyze first — plan carefully before adjusting.",value:4}]}
 ];
 
+// Quiz results
 const results = [
   { minScore: 8,  maxScore: 10, text: "UNMARRY", img: "https://i.ibb.co/PzcqR6C9/UNMARRY.jpg" },
   { minScore: 11, maxScore: 13, text: "SHAKE, RATTLE & ROLL EVIL ORIGINS", img: "https://i.ibb.co/MmjvmWV/SHAKE-RATTLE-ROLL.jpg" },
@@ -20,13 +22,14 @@ const results = [
   { minScore: 29, maxScore: 32, text: "CALL ME MOTHER", img: "https://i.ibb.co/sdmW6VzH/CALL-ME-MOTHER.jpg" }
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
-  let currentQuestion = 0;
-  let score = 0;
-
+(function(){
+  // DOM elements
   const questionContainer = document.getElementById("question-container");
   const answerButtons = document.getElementById("answer-buttons");
   const resultContainer = document.getElementById("result-container");
+
+  let currentQuestion = 0;
+  let score = 0;
 
   function showQuestion() {
     questionContainer.innerHTML = `<h3>${quizData[currentQuestion].question}</h3>`;
@@ -34,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quizData[currentQuestion].answers.forEach(answer => {
       const btn = document.createElement("button");
       btn.innerText = answer.text;
-      btn.onclick = () => selectAnswer(answer.value);
+      btn.addEventListener("click", () => selectAnswer(answer.value));
       answerButtons.appendChild(btn);
     });
   }
@@ -42,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function selectAnswer(value) {
     score += value;
     currentQuestion++;
-    if(currentQuestion < quizData.length){
+    if(currentQuestion < quizData.length) {
       showQuestion();
     } else {
       showResult();
@@ -56,5 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}">`;
   }
 
+  // Initial call
   showQuestion();
-});
+})();
