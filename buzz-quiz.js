@@ -23,10 +23,10 @@ const results = [
 ];
 
 (function(){
-  // DOM elements
   const questionContainer = document.getElementById("question-container");
   const answerButtons = document.getElementById("answer-buttons");
   const resultContainer = document.getElementById("result-container");
+  const shareContainer = document.getElementById("share-container");
 
   let currentQuestion = 0;
   let score = 0;
@@ -57,8 +57,44 @@ const results = [
     answerButtons.style.display = "none";
     const result = results.find(r => score >= r.minScore && score <= r.maxScore);
     resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}">`;
+
+    showShareButtons(result.text);
   }
 
-  // Initial call
+  function showShareButtons(resultText) {
+    shareContainer.innerHTML = "";
+    const text = encodeURIComponent(`I got "${resultText}" in the MMFF Film Quiz! Find out your MMFF film too!`);
+    const url = encodeURIComponent(window.location.href);
+
+    // Facebook
+    const fbBtn = document.createElement("a");
+    fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+    fbBtn.target = "_blank";
+    fbBtn.innerText = "Share on Facebook";
+    fbBtn.style.background = "#3b5998";
+
+    // X / Twitter
+    const twitterBtn = document.createElement("a");
+    twitterBtn.href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+    twitterBtn.target = "_blank";
+    twitterBtn.innerText = "Share on X";
+    twitterBtn.style.background = "#1DA1F2";
+
+    // Instagram (copy link)
+    const instaBtn = document.createElement("a");
+    instaBtn.href = "#";
+    instaBtn.innerText = "Share on Instagram";
+    instaBtn.style.background = "#C13584"; // Instagram pink
+    instaBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => alert("Quiz link copied! Share it on your Instagram Story or DM."));
+    });
+
+    shareContainer.appendChild(fbBtn);
+    shareContainer.appendChild(twitterBtn);
+    shareContainer.appendChild(instaBtn);
+  }
+
   showQuestion();
 })();
