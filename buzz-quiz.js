@@ -55,22 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const result = results.find(r => score >= r.minScore && score <= r.maxScore);
     resultContainer.innerHTML = `<h3>${result.text}</h3><img src="${result.img}"><br><br>`;
 
-    // Add Restart button
-    const restartBtn = document.createElement("button");
-    restartBtn.id = "restart-btn";
-    restartBtn.innerText = "Restart Quiz";
-    restartBtn.onclick = restartQuiz;
-    resultContainer.appendChild(restartBtn);
-  }
-
-  function restartQuiz() {
-    currentQuestion = 0;
-    score = 0;
-    questionContainer.style.display="block";
-    answerButtons.style.display="block";
-    resultContainer.innerHTML = "";
-    showQuestion();
-  }
-
   showQuestion();
 });
+
